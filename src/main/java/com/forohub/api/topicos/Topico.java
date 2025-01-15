@@ -36,4 +36,15 @@ public class Topico {
     @OneToMany(mappedBy = "topico")
     private List<Respuesta> respuestas;
 
+    public Topico(DatosTopico datosTopico){
+
+        this.titulo = datosTopico.titulo();
+        this.mensaje = datosTopico.mensaje();
+        this.fechaCreacion = datosTopico.fechaCreacion();
+        this.status = datosTopico.status();
+        this.autor = new Usuario(datosTopico.autor());
+        this.curso = new Curso(datosTopico.curso());
+
+    }
+
 }

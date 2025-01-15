@@ -63,6 +63,10 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -95,6 +99,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.20.1</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306/forohub_api</url>
+					<user>root</user>
+					<password>T9eNrB]5!(K_</password>
 				</configuration>
 			</plugin>
 		</plugins>

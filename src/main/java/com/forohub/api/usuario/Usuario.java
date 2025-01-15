@@ -22,4 +22,10 @@ public class Usuario {
     private String nombre;
     private String correoElectronico;
     private String contraseña;
+
+    public Usuario(DatosUsuario autor) {
+        this.nombre = autor.nombre();
+        this.correoElectronico = autor.correoElectronico();
+        this.contraseña = autor.contraseña();
+    }
 }

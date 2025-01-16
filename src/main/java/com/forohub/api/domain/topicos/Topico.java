@@ -1,14 +1,12 @@
-package com.forohub.api.topicos;
+package com.forohub.api.domain.topicos;
 
-import com.forohub.api.curso.Curso;
-import com.forohub.api.curso.DatosCursos;
-import com.forohub.api.respuesta.Respuesta;
-import com.forohub.api.usuario.Usuario;
+import com.forohub.api.domain.curso.Curso;
+import com.forohub.api.domain.respuesta.Respuesta;
+import com.forohub.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,9 +14,10 @@ import java.util.List;
 @Table(name = "Topico")
 @Entity(name = "Topico")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Topico {
 
     @Id
@@ -26,6 +25,8 @@ public class Topico {
     private Long id;
     private String titulo;
     private String mensaje;
+    @CreationTimestamp
+    @Column(name = "fechaCreacion", updatable = false)
     private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -36,15 +37,18 @@ public class Topico {
     @OneToMany(mappedBy = "topico")
     private List<Respuesta> respuestas;
 
+
+
     public Topico(DatosTopico datosTopico){
 
         this.titulo = datosTopico.titulo();
         this.mensaje = datosTopico.mensaje();
-        this.fechaCreacion = datosTopico.fechaCreacion();
         this.status = datosTopico.status();
         this.autor = new Usuario(datosTopico.autor());
         this.curso = new Curso(datosTopico.curso());
 
+
     }
+
 
 }

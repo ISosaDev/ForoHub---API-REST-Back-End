@@ -1,12 +1,13 @@
-package com.forohub.api.respuesta;
+package com.forohub.api.domain.respuesta;
 
-import com.forohub.api.topicos.Topico;
-import com.forohub.api.usuario.Usuario;
+import com.forohub.api.domain.topicos.Topico;
+import com.forohub.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Respuesta {
 
     @Id
@@ -24,9 +25,19 @@ public class Respuesta {
     private String mensaje;
     @ManyToOne
     private Topico topico;
+    @CreationTimestamp
+    @Column(name = "fechaCreacion", updatable = false)
     private LocalDateTime fechaCreacion;
     @ManyToOne
     private Usuario autor;
     private String solucion;
+
+    public Respuesta(DatosRespuestas datosRespuesta) {
+        this.mensaje = datosRespuesta.mensaje();
+        this.topico = new Topico(datosRespuesta.topico());
+        this.autor = new Usuario(datosRespuesta.autor());
+        this.solucion = datosRespuesta.solucion();
+    }
+
 
 }

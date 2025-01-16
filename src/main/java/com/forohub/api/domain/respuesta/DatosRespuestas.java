@@ -1,7 +1,8 @@
-package com.forohub.api.respuesta;
+package com.forohub.api.domain.respuesta;
 
-import com.forohub.api.topicos.Topico;
-import com.forohub.api.usuario.DatosUsuario;
+import com.forohub.api.domain.topicos.DatosTopico;
+import com.forohub.api.domain.topicos.Topico;
+import com.forohub.api.domain.usuario.DatosUsuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,9 +14,8 @@ public record DatosRespuestas(
         @NotBlank
         String mensaje,
         @NotNull
-        Topico topico,
-        @NotBlank
-        LocalDateTime fechaCreacion,
+        DatosTopico topico,
+
         @NotNull
         DatosUsuario autor,
         @NotBlank

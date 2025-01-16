@@ -1,17 +1,14 @@
-package com.forohub.api.curso;
+package com.forohub.api.domain.curso;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Entity
+@Entity(name = "Curso")
 @Table(name = "curso")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Curso {
 
     @Id
@@ -21,6 +18,7 @@ public class Curso {
     private String categoria;
 
     public Curso(DatosCursos curso) {
+
         this.nombre = curso.nombre();
         this.categoria = curso.categoria();
     }

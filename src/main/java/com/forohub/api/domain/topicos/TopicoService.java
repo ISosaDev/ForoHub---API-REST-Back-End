@@ -1,8 +1,15 @@
 package com.forohub.api.domain.topicos;
 
+import com.forohub.api.domain.curso.Curso;
+import com.forohub.api.domain.curso.CursoRepository;
+import com.forohub.api.domain.usuario.Usuario;
+import com.forohub.api.domain.usuario.UsuarioRepository;
+import com.forohub.api.domain.validaciones.ValidacionTopico;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -10,21 +17,30 @@ import java.time.LocalDateTime;
 public class TopicoService {
 
     @Autowired
-    private final TopicoRepository topicoRepository;
+    private ValidacionTopico validacionTopico;
 
-    public TopicoService(TopicoRepository topicoRepository) {
-        this.topicoRepository = topicoRepository;
-    }
+    @Autowired
+    private TopicoRepository topicoRepository;
 
-    @Transactional
-    public Topico registrarTopico(DatosTopico datosTopico) {
-        // Verificar si ya existe un tópico con el mismo título y mensaje
-        if (topicoRepository.existsByTituloAndMensaje(datosTopico.titulo(), datosTopico.mensaje())) {
-            throw new IllegalArgumentException("Ya existe un tópico con el mismo título y mensaje.");
-        }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-        // Crear el tópico y guardarlo en la base de datos
-        Topico topico = new Topico(datosTopico);
-        return topicoRepository.save(topico); // La fecha de creación se maneja automáticamente
+    @Autowired
+    private CursoRepository cursoRepository;
+
+    public Topico crearTopico(DatosTopico datosTopico) {
+        validacionTopico.validar(datosTopico);
+
+        // Obtener el autor y el curso desde los repositorios
+        Usuario autor = usuarioRepository.findById(datosTopico.autorId())
+                .orElseThrow(() -> new IllegalArgumentException("Autor no encontrado"));
+        Curso curso = cursoRepository.findByNombre(datosTopico.cursoNombre())
+                .orElseThrow(() -> new IllegalArgumentException("Curso no encontrado"));
+
+        // Crear la entidad Topico
+        Topico topico = new Topico(datosTopico.titulo(), datosTopico.mensaje(), datosTopico.status(), autor, curso);
+
+        return topicoRepository.save(topico);
     }
 }
+

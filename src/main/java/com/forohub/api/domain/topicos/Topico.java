@@ -15,11 +15,11 @@ import java.util.List;
 @Entity(name = "Topico")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Topico {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,25 +29,31 @@ public class Topico {
     @Column(name = "fechaCreacion", updatable = false)
     private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Status status;
     @ManyToOne
+    @JoinColumn(name = "autor_id")
+    @NotNull
     private Usuario autor;
     @ManyToOne
+    @JoinColumn(name = "curso_id")
+    @NotNull
     private Curso curso;
     @OneToMany(mappedBy = "topico")
     private List<Respuesta> respuestas;
 
+    public Topico() {
+        // El constructor puede estar vacío, no es necesario hacer nada aquí.
+    }
 
 
-    public Topico(DatosTopico datosTopico){
 
-        this.titulo = datosTopico.titulo();
-        this.mensaje = datosTopico.mensaje();
-        this.status = datosTopico.status();
-        this.autor = new Usuario(datosTopico.autor());
-        this.curso = new Curso(datosTopico.curso());
-
-
+    public Topico(String titulo, String mensaje, Status status, Usuario autor, Curso curso) {
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+        this.status = status;
+        this.autor = autor;
+        this.curso = curso;
     }
 
 

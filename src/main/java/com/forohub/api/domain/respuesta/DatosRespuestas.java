@@ -15,9 +15,9 @@ public record DatosRespuestas(
         String mensaje,
         @NotNull
         DatosTopico topico,
-
         @NotNull
         DatosUsuario autor,
         @NotBlank
-        String solucion) {
+        String solucion
+) {
 }

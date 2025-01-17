@@ -5,9 +5,10 @@ import com.forohub.api.domain.curso.DatosCursos;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidacionCurso {
+public class ValidacionCurso implements Validador<DatosCursos> {
 
-    public static void validar(DatosCursos datosCursos) {
+    @Override
+    public void validar(DatosCursos datosCursos) {
         if (datosCursos == null) {
             throw new IllegalArgumentException("Los datos del curso no pueden ser nulos.");
         }

@@ -22,15 +22,15 @@ import java.util.Optional;
 @RequestMapping("respuestas")
 public class RespuestaController {
 
-    private final RespuestaService respuestaService;
-
-    public RespuestaController(RespuestaService respuestaService) {
-        this.respuestaService = respuestaService;
-    }
+    @Autowired
+    private RespuestaService servicioRespuesta;
 
     @PostMapping
     public ResponseEntity<Respuesta> registrarRespuesta(@RequestBody @Valid DatosRespuestas datosRespuesta) {
-        Respuesta respuesta = respuestaService.registrarRespuesta(datosRespuesta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
+        // Crear la respuesta utilizando el servicio
+        Respuesta respuestaGuardada = servicioRespuesta.crearRespuesta(datosRespuesta);
+
+        // Retornar la respuesta
+        return ResponseEntity.status(HttpStatus.CREATED).body(respuestaGuardada);
     }
 }

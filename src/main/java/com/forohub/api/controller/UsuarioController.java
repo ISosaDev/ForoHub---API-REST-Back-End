@@ -3,6 +3,7 @@ package com.forohub.api.controller;
 import com.forohub.api.domain.usuario.DatosUsuario;
 import com.forohub.api.domain.usuario.Usuario;
 import com.forohub.api.domain.usuario.UsuarioRepository;
+import com.forohub.api.domain.usuario.UsuarioService;
 import com.forohub.api.domain.validaciones.ValidacionUsuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService servicioUsuario;
 
     @PostMapping
     public ResponseEntity<Usuario> crearUsuario(@RequestBody @Valid DatosUsuario datosUsuario) {
-        // Validar datos del usuario
-        ValidacionUsuario.validar(datosUsuario);
-
-        // Crear la entidad Usuario
-        Usuario usuario = new Usuario(datosUsuario);
-
-        // Guardar la entidad en la base de datos
-        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+        // Crear el usuario utilizando el servicio
+        Usuario usuarioGuardado = servicioUsuario.crearUsuario(datosUsuario);
 
         // Retornar la respuesta
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);

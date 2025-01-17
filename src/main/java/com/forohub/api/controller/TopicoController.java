@@ -19,19 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/topicos")
 public class TopicoController {
 
-    private final TopicoService topicoService;
-
-    public TopicoController(TopicoService topicoService) {
-        this.topicoService = topicoService;
-    }
+    @Autowired
+    private TopicoService servicioTopico;
 
     @PostMapping
-    public ResponseEntity<Topico> registrarTopico(@RequestBody @Valid DatosTopico datosTopico) {
-        // Validar los datos del tópico antes de guardarlos
-        topicoService.registrarTopico(datosTopico);
+    public ResponseEntity<Topico> registrarTopico(@RequestBody @Valid DatosTopico datos) {
+        // Crear el tópico utilizando el servicio
+        Topico topicoCreado = servicioTopico.crearTopico(datos);
 
-        // Retornar el tópico guardado con código 201
-        return ResponseEntity.status(HttpStatus.CREATED).body(topicoService.registrarTopico(datosTopico));
+        // Retornar la respuesta
+        return ResponseEntity.status(HttpStatus.CREATED).body(topicoCreado);
     }
-
 }
+
+

@@ -1,8 +1,12 @@
 package com.forohub.api.domain.topicos;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.forohub.api.domain.curso.Curso;
 import com.forohub.api.domain.curso.DatosCursos;
 import com.forohub.api.domain.respuesta.DatosRespuestas;
 import com.forohub.api.domain.usuario.DatosUsuario;
+import com.forohub.api.domain.usuario.Usuario;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,12 +23,9 @@ public record DatosTopico(
         @NotNull
         Status status,
         @NotNull
-        @Valid
-        DatosUsuario autor,
+        @JsonProperty("id de autor") Long autorId,
         @NotNull
-        @Valid
-        DatosCursos curso,
-        @NotNull
-        @Valid
+        @JsonProperty("Curso") String cursoNombre,
+
         List<DatosRespuestas> respuestas) {
 }

@@ -1,31 +1,29 @@
 package com.forohub.api.domain.respuesta;
 
 import com.forohub.api.domain.topicos.Topico;
-import com.forohub.api.domain.topicos.TopicoRepository;
 import com.forohub.api.domain.usuario.Usuario;
-import com.forohub.api.domain.usuario.UsuarioRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "Respuesta")
 @Table(name = "Respuesta")
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Respuesta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     private String mensaje;
@@ -50,10 +48,6 @@ public class Respuesta {
         this.topico = topico;
         this.autor = autor;
         this.solucion = datosRespuesta.solucion();
-    }
-
-    public Respuesta() {
-        // El constructor puede estar vacío, no es necesario hacer nada aquí.
     }
 
 

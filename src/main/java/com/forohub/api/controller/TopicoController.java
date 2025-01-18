@@ -2,11 +2,8 @@ package com.forohub.api.controller;
 
 
 import com.forohub.api.domain.ValidacionException;
-import com.forohub.api.domain.topicos.DatosTopico;
-import com.forohub.api.domain.topicos.Topico;
-import com.forohub.api.domain.topicos.TopicoRepository;
-import com.forohub.api.domain.topicos.TopicoService;
-import com.forohub.api.domain.validaciones.ValidacionTopico;
+import com.forohub.api.domain.topicos.*;
+import com.forohub.api.domain.usuario.DatosRespuestaUsuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +20,17 @@ public class TopicoController {
     @Autowired
     private TopicoService servicioTopico;
 
+    @Autowired
+    private TopicoRepository topicoRepository;
+
     @PostMapping
     public ResponseEntity<?> registrarTopico(@RequestBody @Valid DatosTopico datos) {
         try {
             // Crear el tópico utilizando el servicio
             Topico topicoCreado = servicioTopico.crearTopico(datos);
+            DatosRespuestaTopicos datosRespuestaTopicos = new DatosRespuestaTopicos(topicoCreado.getId(),
+                    topicoCreado.getTitulo(), topicoCreado.getMensaje(),topicoCreado.getFechaCreacion(), topicoCreado.getStatus(),
+                    topicoCreado.getAutor(), topicoCreado.getCurso());
             // Retornar la respuesta
             return ResponseEntity.status(HttpStatus.CREATED).body(topicoCreado);
         } catch (ValidacionException e) {

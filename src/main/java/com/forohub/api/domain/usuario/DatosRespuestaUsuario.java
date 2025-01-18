@@ -1,7 +1,7 @@
 package com.forohub.api.domain.usuario;
 
 public record DatosRespuestaUsuario(
-        Long id,
+        long id,
         String nombre,
         String correoElectronico,
         String contraseña

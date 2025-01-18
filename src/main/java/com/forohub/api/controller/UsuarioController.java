@@ -1,10 +1,7 @@
 package com.forohub.api.controller;
 
 import com.forohub.api.domain.ValidacionException;
-import com.forohub.api.domain.usuario.DatosUsuario;
-import com.forohub.api.domain.usuario.Usuario;
-import com.forohub.api.domain.usuario.UsuarioRepository;
-import com.forohub.api.domain.usuario.UsuarioService;
+import com.forohub.api.domain.usuario.*;
 import com.forohub.api.domain.validaciones.ValidacionUsuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +27,10 @@ public class UsuarioController {
         try {
             // Crear el usuario utilizando el servicio
             Usuario usuarioCreado = servicioUsuario.crearUsuario(datosUsuario);
+            DatosRespuestaUsuario datosRespuestaUsuario = new DatosRespuestaUsuario(usuarioCreado.getId(), usuarioCreado.getNombre(),
+                    usuarioCreado.getCorreoElectronico(), usuarioCreado.getContraseña());
             // Retornar la respuesta
-            return ResponseEntity.status(HttpStatus.CREATED).body(datosUsuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(datosRespuestaUsuario);
         } catch (ValidacionException e) {
             // Manejar la excepción y retornar un mensaje de error amigable
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

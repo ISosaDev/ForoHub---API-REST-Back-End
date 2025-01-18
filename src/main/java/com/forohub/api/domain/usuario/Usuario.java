@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Usuario {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,5 +35,19 @@ public class Usuario {
         this.contraseña = autor.contraseña();
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
 }

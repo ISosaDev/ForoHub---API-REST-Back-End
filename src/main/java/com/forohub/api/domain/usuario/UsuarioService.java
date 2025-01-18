@@ -16,9 +16,13 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario crearUsuario(DatosUsuario datosUsuario) {
+        // Validar datos del usuario
         validacionUsuario.validar(datosUsuario);
-        Usuario usuario = new Usuario(datosUsuario);
-        return usuarioRepository.save(usuario);
 
+        // Crear la entidad Usuario
+        Usuario usuario = new Usuario(datosUsuario);
+
+        // Guardar el usuario en la base de datos
+        return usuarioRepository.save(usuario);
     }
 }

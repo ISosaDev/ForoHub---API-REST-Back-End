@@ -1,11 +1,20 @@
 package com.forohub.api.domain.validaciones;
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.curso.Curso;
+import com.forohub.api.domain.curso.CursoRepository;
 import com.forohub.api.domain.curso.DatosCursos;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidacionCurso implements Validador<DatosCursos> {
+
+    private final CursoRepository cursoRepository;
+
+    public ValidacionCurso(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
+    }
+
 
     @Override
     public void validar(DatosCursos datosCursos) {
@@ -17,6 +26,9 @@ public class ValidacionCurso implements Validador<DatosCursos> {
         }
         if (datosCursos.categoria() == null || datosCursos.categoria().isBlank()) {
             throw new IllegalArgumentException("La categoría del curso no puede estar vacía.");
+        }
+        if (cursoRepository.existsByNombre(datosCursos.nombre())){
+            throw new ValidacionException("Ya existe un curso con el mismo nombre");
         }
     }
 }

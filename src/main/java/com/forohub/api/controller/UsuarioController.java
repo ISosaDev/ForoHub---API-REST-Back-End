@@ -1,5 +1,6 @@
 package com.forohub.api.controller;
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.usuario.DatosUsuario;
 import com.forohub.api.domain.usuario.Usuario;
 import com.forohub.api.domain.usuario.UsuarioRepository;
@@ -21,12 +22,19 @@ public class UsuarioController {
     @Autowired
     private UsuarioService servicioUsuario;
 
-    @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody @Valid DatosUsuario datosUsuario) {
-        // Crear el usuario utilizando el servicio
-        Usuario usuarioGuardado = servicioUsuario.crearUsuario(datosUsuario);
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-        // Retornar la respuesta
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);
+    @PostMapping
+    public ResponseEntity<?> crearUsuario(@RequestBody @Valid DatosUsuario datosUsuario) {
+        try {
+            // Crear el usuario utilizando el servicio
+            Usuario usuarioCreado = servicioUsuario.crearUsuario(datosUsuario);
+            // Retornar la respuesta
+            return ResponseEntity.status(HttpStatus.CREATED).body(datosUsuario);
+        } catch (ValidacionException e) {
+            // Manejar la excepción y retornar un mensaje de error amigable
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

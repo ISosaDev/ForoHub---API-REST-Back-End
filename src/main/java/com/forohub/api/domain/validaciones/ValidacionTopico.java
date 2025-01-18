@@ -1,5 +1,6 @@
 package com.forohub.api.domain.validaciones;
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.topicos.DatosTopico;
 import com.forohub.api.domain.topicos.Topico;
 import com.forohub.api.domain.topicos.TopicoRepository;
@@ -9,7 +10,7 @@ import java.util.Optional;
 @Component
 public class ValidacionTopico implements Validador<DatosTopico> {
 
-    private final TopicoRepository topicoRepository;
+    private TopicoRepository topicoRepository;
 
     // Constructor para inyectar el repositorio
     public ValidacionTopico(TopicoRepository topicoRepository) {
@@ -19,7 +20,7 @@ public class ValidacionTopico implements Validador<DatosTopico> {
     @Override
     public void validar(DatosTopico datosTopico) {
         if (topicoRepository.existsByTituloAndMensaje(datosTopico.titulo(), datosTopico.mensaje())) {
-            throw new IllegalArgumentException("Ya existe un tópico con el mismo título y mensaje.");
+            throw new ValidacionException("Ya existe un tópico con el mismo título y mensaje.");
         }
     }
 }

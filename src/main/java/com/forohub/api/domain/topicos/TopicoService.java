@@ -1,5 +1,6 @@
 package com.forohub.api.domain.topicos;
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.curso.Curso;
 import com.forohub.api.domain.curso.CursoRepository;
 import com.forohub.api.domain.usuario.Usuario;
@@ -33,9 +34,9 @@ public class TopicoService {
 
         // Obtener el autor y el curso desde los repositorios
         Usuario autor = usuarioRepository.findById(datosTopico.autorId())
-                .orElseThrow(() -> new IllegalArgumentException("Autor no encontrado"));
+                .orElseThrow(() -> new ValidacionException("Autor no encontrado"));
         Curso curso = cursoRepository.findByNombre(datosTopico.cursoNombre())
-                .orElseThrow(() -> new IllegalArgumentException("Curso no encontrado"));
+                .orElseThrow(() -> new ValidacionException("Curso no encontrado"));
 
         // Crear la entidad Topico
         Topico topico = new Topico(datosTopico.titulo(), datosTopico.mensaje(), datosTopico.status(), autor, curso);

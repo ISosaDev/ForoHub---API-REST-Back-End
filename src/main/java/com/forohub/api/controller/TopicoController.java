@@ -1,6 +1,7 @@
 package com.forohub.api.controller;
 
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.topicos.DatosTopico;
 import com.forohub.api.domain.topicos.Topico;
 import com.forohub.api.domain.topicos.TopicoRepository;
@@ -23,12 +24,16 @@ public class TopicoController {
     private TopicoService servicioTopico;
 
     @PostMapping
-    public ResponseEntity<Topico> registrarTopico(@RequestBody @Valid DatosTopico datos) {
-        // Crear el tópico utilizando el servicio
-        Topico topicoCreado = servicioTopico.crearTopico(datos);
-
-        // Retornar la respuesta
-        return ResponseEntity.status(HttpStatus.CREATED).body(topicoCreado);
+    public ResponseEntity<?> registrarTopico(@RequestBody @Valid DatosTopico datos) {
+        try {
+            // Crear el tópico utilizando el servicio
+            Topico topicoCreado = servicioTopico.crearTopico(datos);
+            // Retornar la respuesta
+            return ResponseEntity.status(HttpStatus.CREATED).body(topicoCreado);
+        } catch (ValidacionException e) {
+            // Manejar la excepción y retornar un mensaje de error amigable
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
 

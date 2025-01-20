@@ -80,7 +80,6 @@ public class TopicoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tópico no encontrado");
         }
     }
-
 }
 
 

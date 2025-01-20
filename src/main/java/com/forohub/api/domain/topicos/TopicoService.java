@@ -32,7 +32,7 @@ public class TopicoService {
     public Topico crearTopico(DatosTopico datosTopico) {
         validacionTopico.validar(datosTopico);
 
-        // Obtener el autor y el curso desde los repositorios
+        // Obtener el autor y el cursoNombre desde los repositorios
         Usuario autor = usuarioRepository.findById(datosTopico.autorId())
                 .orElseThrow(() -> new ValidacionException("Autor no encontrado"));
         Curso curso = cursoRepository.findByNombre(datosTopico.cursoNombre())

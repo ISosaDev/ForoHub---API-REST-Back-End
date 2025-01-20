@@ -27,7 +27,7 @@ public class CursoController {
     public ResponseEntity<?> crearCurso(@RequestBody @Valid DatosCursos datosCursos) {
 
         try {
-            // Crear el curso utilizando el servicio
+            // Crear el cursoNombre utilizando el servicio
             Curso cursoGuardado = servicioCurso.crearCurso(datosCursos);
 
             // Retornar la respuesta

@@ -1,8 +1,11 @@
 package com.forohub.api.domain.topicos;
 
+import com.forohub.api.domain.ValidacionException;
 import com.forohub.api.domain.curso.Curso;
+import com.forohub.api.domain.curso.CursoRepository;
 import com.forohub.api.domain.respuesta.Respuesta;
 import com.forohub.api.domain.usuario.Usuario;
+import com.forohub.api.domain.usuario.UsuarioRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -58,4 +61,23 @@ public class Topico {
         this.curso = curso;
     }
 
+    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico, UsuarioRepository usuarioRepository, CursoRepository cursoRepository) {
+        if (datosActualizarTopico.titulo() != null) {
+            this.titulo = datosActualizarTopico.titulo();
+        }
+        if (datosActualizarTopico.mensaje() != null) {
+            this.mensaje = datosActualizarTopico.mensaje();
+        }
+        if (datosActualizarTopico.status() != null) {
+            this.status = datosActualizarTopico.status();
+        }
+        if (datosActualizarTopico.autor() != null) {
+            this.autor = usuarioRepository.findById(datosActualizarTopico.autor())
+                    .orElseThrow(() -> new ValidacionException("Autor no encontrado"));
+        }
+        if (datosActualizarTopico.cursoNombre() != null) {
+            this.curso = cursoRepository.findByNombre(datosActualizarTopico.cursoNombre())
+                    .orElseThrow(() -> new ValidacionException("Curso no encontrado"));
+        }
+    }
 }

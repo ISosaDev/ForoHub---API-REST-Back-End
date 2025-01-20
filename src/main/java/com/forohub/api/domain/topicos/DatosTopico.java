@@ -16,7 +16,7 @@ import java.util.List;
 public record DatosTopico(
 
         Long id,
-        @NotBlank
+        @NotBlank ()
         String titulo,
         @NotBlank
         String mensaje,

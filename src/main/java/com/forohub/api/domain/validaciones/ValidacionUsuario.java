@@ -30,9 +30,9 @@ public class ValidacionUsuario implements Validador<DatosUsuario> {
         if (usuarioRepository.existsByCorreoElectronico(datosUsuario.correoElectronico())) {
             throw new ValidacionException("Ya existe un usuario con el mismo correo electrónico.");
         }
-        if (usuarioRepository.existsByNombre(datosUsuario.nombre())) {
-            throw new ValidacionException("Ya existe un usuario con el mismo nombre.");
-        }
+        //if (usuarioRepository.existsByNombre(datosUsuario.nombre())) {
+        //    throw new ValidacionException("Ya existe un usuario con el mismo nombre.");
+        //}
 
     }
 }

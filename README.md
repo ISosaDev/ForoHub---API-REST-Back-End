@@ -18,7 +18,7 @@ La API está diseñada para ser segura, eficiente y fácil de usar.
    ```bash
    git clone https://github.com/ISosaDev/ForoHub---API-REST-Back-End.git
 2. Navega al directorio del proyecto:
-cd forohub-api
+cd ForoHub---API-REST-Back-End
 
 3. Configura la base de datos en el archivo application.properties:
 

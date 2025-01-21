@@ -11,5 +11,11 @@ public record DatosUsuario(
         @NotBlank
         String correoElectronico,
         @NotBlank
-        String contraseña) {
+        String contraseña,
+        @NotBlank
+        String username,
+        @NotBlank
+        Rol rol
+) {
+
 }

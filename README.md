@@ -16,7 +16,7 @@ La API está diseñada para ser segura, eficiente y fácil de usar.
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/forohub-api.git
+   git clone https://github.com/ISosaDev/ForoHub---API-REST-Back-End.git
 2. Navega al directorio del proyecto:
 cd forohub-api
 
@@ -29,7 +29,7 @@ spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.Ph
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 server.error.include-stacktrace=never
-api.security.secret=${JWT_SECRET:Contraseñasecreta}
+api.security.secret=${JWT_SECRET:ContraseñaSecreta}
 
 4. Ejecuta la aplicación:
 

@@ -41,7 +41,7 @@ public class Respuesta {
     private Usuario autor;
 
     @NotNull
-    private String solucion;  // Asegúrate de que sea un String si la lógica lo requiere
+    private String solucion;
 
     public Respuesta(DatosRespuestas datosRespuesta, Topico topico, Usuario autor) {
         this.mensaje = datosRespuesta.mensaje();
